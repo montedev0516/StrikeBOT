@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// schema.prisma
+model Income {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  senderId String
+  referral Float?
+  lucky    Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("incomes")
+}
+
+model User {
+  id         String  @id
+  referrerId String?
+  username   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //referrer   User?    @relation("Referrer", fields: [referrerId], references: [id])
+  Strategy  Strategy[]
+  Trade     Trade[]
+  CopyTrade CopyTrade[]
+
+  @@map("users")
+}
+
+model Wallet {
+  id        String @id
+  publicKey String
+  secretKey String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("wallets")
+}
+
+model Settings {
+  id               String  @id
+  minPosValue      Float   @default(0.001)
+  autoBuy          Boolean @default(false)
+  autoBuyAmount    Float   @default(0.1)
+  autoSell         Boolean @default(false)
+  autoSellAmount   Int     @default(50)
+  leftBuyAmount    Float   @default(1.0)
+  rightBuyAmount   Float   @default(5.0)
+  leftSellAmount   Float   @default(25)
+  rightSellAmount  Float   @default(100)
+  buySlippage      Float   @default(20)
+  sellSlippage     Float   @default(20)
+  autoBuySlippage  Float   @default(20)
+  autoSellSlippage Float   @default(20)
+  gasFee           Float   @default(0.0005)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model Strategy {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  percent Int
+  amount  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("strategies")
+}
+
+model Trade {
+  id         Int    @id @default(autoincrement())
+  userId     String
+  inputMint  String
+  inAmount   Float
+  outputMint String
+  outAmount  Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("trades")
+}
+
+model CopyTrade {
+  id                Int    @id @default(autoincrement())
+  copyWalletAddress String
+  amount            Float
+  userId            String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("copy_trade")
+}
