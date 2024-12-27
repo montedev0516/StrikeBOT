@@ -8,6 +8,12 @@ If there is any issue, please feel free to reach out me.
 https://t.me/alpha_T0108
 <br />
 
+# Key Features
+    1. Solana Token Launchpad
+    2. Jito-bundler, Buy/Sell
+    3. Copy Trading
+    4. Token Sniper
+    5. Refresh Token
 
 # Key Modules
     "@coral-xyz/anchor"
