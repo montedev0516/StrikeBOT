@@ -2,12 +2,8 @@
 ## This is the telegram trading bot on solana.
 ## Tell me more
 
-My Address: `0xA674907aA51ac1027b8A3AEec4149D4df91804a8`
+M-E: `0xA674907aA51ac1027b8A3AEec4149D4df91804a8`
             `0x1f0e8e61e2c2beb9b9cdea7dc2bd8c761124533e`
-If there is any issue, please feel free to reach out me.
-<br />
-https://t.me/alpha_T0108
-<br />
 
 # Key Features
     1. Solana Token Launchpad
